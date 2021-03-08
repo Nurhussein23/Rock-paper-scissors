@@ -1,5 +1,5 @@
 let userScore = 0;
-const computerScore = 0;
+let computerScore = 0;
 
 // cache dom
 const userScore_span = document.getElementById('user-score')
@@ -27,13 +27,27 @@ function convertLetter(letter){
 function wins(userChoice,ComputerChoice){
   userScore++
   userScore_span.innerHTML = userScore
-
+  computerScore_span.innerHTML = computerScore
   result_p.innerHTML = `${convertLetter(userChoice)} beats ${convertLetter(ComputerChoice)} You win`
+  document.getElementById(userChoice).classList.add('green-glow')
+  setTimeout(() => {document.getElementById(userChoice).classList.remove('green-glow')},300)
 }
 
 
-function Lose(){
-  
+function Lose(userChoice,computerChoice){
+  computerScore++
+  computerScore_span.innerHTML = computerScore
+  userScore_span.innerHTML = userScore
+  result_p.innerHTML = `${convertLetter(computerChoice)} beats ${convertLetter(userChoice)} You Lose`
+  document.getElementById(userChoice).classList.add('red-glow')
+  setTimeout(() =>{document.getElementById(userChoice).classList.remove('red-glow')},300)
+}
+
+
+function draw(userChoice,computerChoice){
+  result_p.innerHTML =`${convertLetter(userChoice)} equals ${convertLetter(computerChoice)} Its a Draw` 
+   document.getElementById(userChoice).classList.add('grey-glow')
+  setTimeout(() =>{document.getElementById(userChoice).classList.remove('grey-glow')},300)
 }
 
 function game(userChoice){
@@ -47,12 +61,12 @@ function game(userChoice){
     case 'rp':
     case 'ps':
     case 'sr':
-      console.log('COMPUTER WINS')
+      Lose(userChoice,computerChoice)
       break;
     case 'rr':
     case 'pp':
     case 'ss':
-      console.log('Its a draw')
+     draw(userChoice,computerChoice)
       break;
   }
  
